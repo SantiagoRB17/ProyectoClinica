@@ -1,7 +1,5 @@
 package co.edu.uniquindio.poo.proyectoclinica.model;
 
-import lombok.Builder;
-
 import java.util.List;
 
 public class SuscripcionPremium implements Suscripcion {
