@@ -9,7 +9,7 @@ import java.util.UUID;
 public class Cita {
     Paciente paciente;
     @Builder.Default
-    UUID id=UUID.randomUUID();
+    UUID id= UUID.randomUUID();
     LocalDateTime fecha;
     Servicio servicio;
     Factura factura;
