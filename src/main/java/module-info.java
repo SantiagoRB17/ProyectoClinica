@@ -4,6 +4,8 @@ module ProyectoClinica {
     requires static lombok;
     requires com.dlsc.gemsfx;
     requires java.desktop;
+    requires org.simplejavamail.core;
+    requires org.simplejavamail;
 
     opens co.edu.uniquindio.poo.proyectoclinica to javafx.fxml;
     exports co.edu.uniquindio.poo.proyectoclinica;

@@ -1,6 +1,7 @@
 package co.edu.uniquindio.poo.proyectoclinica.servicios;
 
 import co.edu.uniquindio.poo.proyectoclinica.model.*;
+import co.edu.uniquindio.poo.proyectoclinica.utils.EnvioEmail;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -39,6 +40,9 @@ public class ClinicaServicio implements IClinicaServicio{
     @Override
     public void registrarCita(String cedula, Servicio servicio, LocalDateTime fecha) throws Exception {
         servicioCitas.agregarCita(cedula,servicio,fecha);
+        Paciente paciente = servicioPacientes.buscarPaciente(cedula);
+        String mensaje = EnvioEmail.construirMensajeCita(paciente.getNombre(), servicio.getNombre(), fecha);
+        EnvioEmail.enviarNotificacion(paciente.getEmail(), "Confirmación de Cita", mensaje);
     }
 
     /**

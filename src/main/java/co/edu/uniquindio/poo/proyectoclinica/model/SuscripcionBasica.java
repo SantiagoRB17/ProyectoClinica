@@ -21,4 +21,6 @@ public class SuscripcionBasica implements Suscripcion {
     public String toString() {
         return "Basica";
     }
+
+
 }
