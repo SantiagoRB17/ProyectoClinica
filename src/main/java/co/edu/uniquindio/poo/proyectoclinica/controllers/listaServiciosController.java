@@ -66,7 +66,7 @@ public class listaServiciosController implements Initializable {
     ControladorPrincipal controladorPrincipal=ControladorPrincipal.getInstancia();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        clNombre.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getNombre()));
+        clNombre.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getNombre().toString()));
         clPrecio.setCellValueFactory(cellData->new SimpleObjectProperty<>(cellData.getValue().getPrecio()));
 
         cargarDatosTabla();

@@ -41,7 +41,7 @@ public class ClinicaServicio implements IClinicaServicio{
     public void registrarCita(String cedula, Servicio servicio, LocalDateTime fecha) throws Exception {
         servicioCitas.agregarCita(cedula,servicio,fecha);
         Paciente paciente = servicioPacientes.buscarPaciente(cedula);
-        String mensaje = EnvioEmail.construirMensajeCita(paciente.getNombre(), servicio.getNombre(), fecha);
+        String mensaje = EnvioEmail.construirMensajeCita(paciente.getNombre(), servicio.getNombre().toString(), fecha);
         EnvioEmail.enviarNotificacion(paciente.getEmail(), "Confirmación de Cita", mensaje);
     }
 
@@ -74,8 +74,8 @@ public class ClinicaServicio implements IClinicaServicio{
      * Metodo que lista las suscripciones como una cadena para enviarlo al combo box
      * @return lista de cadenas
      */
-    public List<String> listarSuscripciones() {
-        return List.of("Premium", "Básica", "Sin suscripcion");
+    public List<TipoSuscripcion> listarSuscripciones() {
+        return List.of(TipoSuscripcion.values());
     }
 
     /**
@@ -98,5 +98,8 @@ public class ClinicaServicio implements IClinicaServicio{
     }
     public List<Servicio> recuperarServiciosSinSuscripcion() {
         return servicioServiciosDisponibles.getServiciosSinSuscripcion();
+    }
+    public Suscripcion asginarSuscripcion(TipoSuscripcion tipoSuscripcion) {
+        return servicioPacientes.asignarSuscripcionSeleccionada(tipoSuscripcion);
     }
 }

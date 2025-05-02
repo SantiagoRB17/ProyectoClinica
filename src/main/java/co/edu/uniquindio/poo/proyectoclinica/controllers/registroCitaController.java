@@ -71,6 +71,9 @@ public class registroCitaController implements Initializable {
      */
     private LocalDateTime obtenerFechaHoraSeleccionada() throws Exception {
         LocalDate fecha = datePickerFechaCita.getValue();
+        if(fecha.isBefore(LocalDate.now())){
+            throw new Exception("La fecha no puede estar en el pasado");
+        }
         LocalTime hora = timePickerHoraCita.getTime();
 
         if (fecha != null && hora != null) {

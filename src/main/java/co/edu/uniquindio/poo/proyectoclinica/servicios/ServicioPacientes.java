@@ -1,7 +1,9 @@
 package co.edu.uniquindio.poo.proyectoclinica.servicios;
 
+import co.edu.uniquindio.poo.proyectoclinica.model.FactorySuscripcion;
 import co.edu.uniquindio.poo.proyectoclinica.model.Paciente;
 import co.edu.uniquindio.poo.proyectoclinica.model.Suscripcion;
+import co.edu.uniquindio.poo.proyectoclinica.model.TipoSuscripcion;
 import co.edu.uniquindio.poo.proyectoclinica.repositorios.RepositorioPacientes;
 
 import java.util.List;
@@ -21,6 +23,9 @@ public class ServicioPacientes {
         }
         if(!validarExpresionRegular(email)){
             throw new Exception("Formato de correo invalido");
+        }
+        if(!validarTelefono(telefono)){
+            throw new Exception("Formato de telefono invalido");
         }
         Paciente paciente = Paciente.builder()
                 .cedula(cedula)
@@ -45,7 +50,7 @@ public class ServicioPacientes {
         repositorioPacientes.eliminarPaciente(cedula);
     }
 
-    public Paciente  buscarPaciente(String cedula) {
+    public Paciente buscarPaciente(String cedula) {
         return repositorioPacientes.buscarPaciente(cedula);
     }
 
@@ -71,5 +76,22 @@ public class ServicioPacientes {
         boolean valido;
         valido= matcher.matches();
         return valido;
+    }
+
+    /**
+     * Valida si el telefono tiene un formato valido
+     * @param telefono
+     * @return
+     */
+    public static boolean validarTelefono(String telefono){
+        String regexTelefono="^\\+?\\d{1,3}?\\d{7,15}$";
+        Pattern expresionValida=Pattern.compile(regexTelefono);
+        Matcher matcherTelefono=expresionValida.matcher(telefono);
+        boolean valido;
+        valido=matcherTelefono.matches();
+        return valido;
+    }
+    public Suscripcion asignarSuscripcionSeleccionada(TipoSuscripcion tipoSuscripcion) {
+        return FactorySuscripcion.crearSuscripcion(tipoSuscripcion);
     }
 }

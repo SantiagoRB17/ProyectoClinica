@@ -13,7 +13,7 @@ public class Servicio {
     @Builder.Default
     @Getter
     private UUID id= UUID.randomUUID();
-    private String nombre;
+    private ServiciosDisponibles nombre;
 
     @Override
     public String toString() {

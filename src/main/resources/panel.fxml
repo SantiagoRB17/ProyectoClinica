@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -31,13 +26,13 @@
         </HBox>
 
 
-        <Button text="Registrar paciente" minWidth="200.0" onAction="#mostrarRegistroPaciente" />
-        <Button text="Listar pacientes" minWidth="200.0" onAction="#mostrarListaPacientes" />
-        <Button text="Crear cita" minWidth="200.0" onAction="#mostrarRegistroCita" />
-        <Button text="Listar citas" minWidth="200.0" onAction="#mostrarListaCitas" />
-        <Button text="Listar Servicios" minWidth="200.0" onAction="#mostrarListaServicios" />
+        <Button minWidth="200.0" onAction="#mostrarRegistroPaciente" text="Registrar paciente" />
+        <Button minWidth="200.0" onAction="#mostrarListaPacientes" text="Listar pacientes" />
+        <Button minWidth="200.0" onAction="#mostrarRegistroCita" text="Crear cita" />
+        <Button minWidth="200.0" onAction="#mostrarListaCitas" text="Listar citas" />
+        <Button minWidth="200.0" onAction="#mostrarListaServicios" text="Listar Servicios" />
     </VBox>
 
 
-    <StackPane fx:id="panelPrincipal" HBox.hgrow="ALWAYS"  />
+    <StackPane fx:id="panelPrincipal" HBox.hgrow="ALWAYS" />
 </HBox>

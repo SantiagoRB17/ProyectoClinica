@@ -43,14 +43,7 @@ public class ListaPacientesControlador implements Initializable {
         clNombre.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getNombre()));
         clTelefono.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getTelefono()));
         clCorreo.setCellValueFactory(cellData->new SimpleStringProperty(cellData.getValue().getEmail()));
-        clSuscripcion.setCellValueFactory(cellData->{
-            Suscripcion suscripcion=cellData.getValue().getSuscripcion();
-            if(suscripcion==null){
-                return new SimpleObjectProperty<>("Sin suscripcion");
-            }else {
-                return new SimpleObjectProperty<>(suscripcion.toString());
-            }
-        });
+        clSuscripcion.setCellValueFactory(cellData-> new SimpleObjectProperty<>(cellData.getValue().getSuscripcion().toString()));
 
         cargarDatosTabla();
     }

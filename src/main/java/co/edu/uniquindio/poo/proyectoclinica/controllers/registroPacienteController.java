@@ -1,8 +1,6 @@
 package co.edu.uniquindio.poo.proyectoclinica.controllers;
 
-import co.edu.uniquindio.poo.proyectoclinica.model.Suscripcion;
-import co.edu.uniquindio.poo.proyectoclinica.model.SuscripcionBasica;
-import co.edu.uniquindio.poo.proyectoclinica.model.SuscripcionPremium;
+import co.edu.uniquindio.poo.proyectoclinica.model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,7 +21,7 @@ public class registroPacienteController implements Initializable {
     private Button btnLimpiarCampos;
 
     @FXML
-    private ComboBox<String> cmbTipoSuscripcion;
+    private ComboBox<TipoSuscripcion> cmbTipoSuscripcion;
 
     @FXML
     private TextField txtFieldCedula;
@@ -43,7 +41,7 @@ public class registroPacienteController implements Initializable {
             if(cmbTipoSuscripcion.getSelectionModel().isEmpty()){
                 throw new Exception("Seleccione un tipo de suscripcion");
             }
-            Suscripcion suscripcion=verificarTipoSuscripcion();
+            Suscripcion suscripcion=verificarTipoSuscripcion(cmbTipoSuscripcion.getValue());
             controladorPrincipal.getClinica().registrarPaciente(txtFieldNombre.getText(),txtFieldTelefono.getText()
                     ,txtFieldCedula.getText(),txtFieldEmail.getText(),suscripcion);
             controladorPrincipal.crearAlerta("Paciente creado con exito",Alert.AlertType.INFORMATION);
@@ -79,16 +77,8 @@ public class registroPacienteController implements Initializable {
      * Metodo que verifica que tipo de suscripcion se selecciono en la suscripcion
      * @return suscripcion
      */
-    public Suscripcion verificarTipoSuscripcion(){
-        Suscripcion suscripcion = null;
-        if(cmbTipoSuscripcion.getSelectionModel().getSelectedItem()==null){
-            suscripcion=null;
-        } else if (cmbTipoSuscripcion.getSelectionModel().getSelectedItem().equals("Premium")) {
-            suscripcion=new SuscripcionPremium();
-        } else if (cmbTipoSuscripcion.getSelectionModel().getSelectedItem().equals("Básica")) {
-            suscripcion=new SuscripcionBasica();
-        }
-        return suscripcion;
+    public Suscripcion verificarTipoSuscripcion(TipoSuscripcion tipoSuscripcion){
+        return controladorPrincipal.getClinica().asginarSuscripcion(tipoSuscripcion);
     }
 }
 

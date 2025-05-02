@@ -1,6 +1,7 @@
 package co.edu.uniquindio.poo.proyectoclinica.repositorios;
 
 import co.edu.uniquindio.poo.proyectoclinica.model.Servicio;
+import co.edu.uniquindio.poo.proyectoclinica.model.ServiciosDisponibles;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -16,30 +17,30 @@ public class RepositorioServicios{
      */
     @Getter
     public List<Servicio> serviciosPremium=List.of(
-            Servicio.builder().nombre("Cardiologia").precio(80000).build(),
-            Servicio.builder().nombre("Pediatria").precio(50000).build(),
-            Servicio.builder().nombre("Dermatologia").precio(30000).build(),
-            Servicio.builder().nombre("Terapia Respiratoria").precio(70000).build(),
-            Servicio.builder().nombre("Control Prenatal").precio(40000).build()
+            Servicio.builder().nombre(ServiciosDisponibles.Cardiologia).precio(80000).build(),
+            Servicio.builder().nombre(ServiciosDisponibles.Pediatria).precio(50000).build(),
+            Servicio.builder().nombre(ServiciosDisponibles.Dermatologia).precio(30000).build(),
+            Servicio.builder().nombre(ServiciosDisponibles.TerapiaRespiratoria).precio(70000).build(),
+            Servicio.builder().nombre(ServiciosDisponibles.ControlPrenatal).precio(40000).build()
     );
     /**
      *Lista de servicios basicos
      */
     @Getter
     public  List<Servicio> serviciosBasica=List.of(
-            Servicio.builder().nombre("Nutricionismo").precio(50000).build(),
-            Servicio.builder().nombre("Odontologia").precio(50000).build(),
-            Servicio.builder().nombre("Electrocardiograma").precio(70000).build(),
-            Servicio.builder().nombre("Radiografia").precio(50000).build()
+            Servicio.builder().nombre(ServiciosDisponibles.Nutricionismo).precio(50000).build(),
+            Servicio.builder().nombre(ServiciosDisponibles.Odontologia).precio(50000).build(),
+            Servicio.builder().nombre(ServiciosDisponibles.Electrocardiograma).precio(70000).build(),
+            Servicio.builder().nombre(ServiciosDisponibles.Radiografia).precio(50000).build()
     );
     /**
      * Lista de servicios sin suscripcion
      */
     @Getter
     public List<Servicio> serviciosSinSuscripcion=List.of(
-            Servicio.builder().nombre("Examen visual").precio(20000).build(),
-            Servicio.builder().nombre("Consulta psicología").precio(40000).build(),
-            Servicio.builder().nombre("Terapia fisica").precio(40000).build()
+            Servicio.builder().nombre(ServiciosDisponibles.ExamenVisual).precio(20000).build(),
+            Servicio.builder().nombre(ServiciosDisponibles.ConsultaPsicología).precio(40000).build(),
+            Servicio.builder().nombre(ServiciosDisponibles.TerapiaFisica).precio(40000).build()
     );
     /**
      * Todos los servicios disponibles, premium, basicos y los que no pertenecen a ninguna suscripcion
