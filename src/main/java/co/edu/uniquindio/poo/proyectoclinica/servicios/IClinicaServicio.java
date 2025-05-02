@@ -4,14 +4,16 @@ import co.edu.uniquindio.poo.proyectoclinica.model.Factura;
 import co.edu.uniquindio.poo.proyectoclinica.model.Servicio;
 import co.edu.uniquindio.poo.proyectoclinica.model.Suscripcion;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 public interface IClinicaServicio {
 
     void registrarPaciente( String nombre, String telefono, String cedula, String email, Suscripcion suscripcion) throws Exception;
     List<Servicio> getServiciosDisponibles();
-    void registrarServicio();
-    void registrarCita();
+    void registrarCita(String cedula, Servicio servicio, LocalDateTime fecha) throws Exception;
+    void cancelarCita(UUID id) throws Exception;
     Factura generarFactura();
     List<Servicio> getServiciosDisponibles(Suscripcion suscripcion);
 

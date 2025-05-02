@@ -9,12 +9,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class RepositorioPacientes {
+    private static RepositorioPacientes INSTANCE;
+
+
     private final List<Paciente> pacientes;
 
-    public RepositorioPacientes() {
+    private RepositorioPacientes() {
         this.pacientes = new ArrayList<>();
     }
 
+    public static RepositorioPacientes getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new RepositorioPacientes();
+        }
+        return INSTANCE;
+    }
 
     public void agregarPaciente(Paciente paciente) throws Exception{
         if(paciente==null){
@@ -90,7 +99,7 @@ public class RepositorioPacientes {
      */
     public List<Paciente> listarPacientePorSuscripcion(Suscripcion suscripcion) throws Exception {
         if (suscripcion == null) {
-            throw new IllegalArgumentException("El tipo desuscripcion no puede ser nulo");
+            throw new IllegalArgumentException("El tipo de suscripcion no puede ser nulo");
         }
         return pacientes.stream()
                 .filter(paciente -> paciente.getSuscripcion().equals(suscripcion))

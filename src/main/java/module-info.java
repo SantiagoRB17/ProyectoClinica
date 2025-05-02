@@ -2,9 +2,12 @@ module ProyectoClinica {
     requires javafx.controls;
     requires javafx.fxml;
     requires static lombok;
+    requires com.dlsc.gemsfx;
 
-    opens co.edu.uniquindio.poo.proyectoclinica.model to javafx.fxml;
+    opens co.edu.uniquindio.poo.proyectoclinica to javafx.fxml;
+    exports co.edu.uniquindio.poo.proyectoclinica;
     exports co.edu.uniquindio.poo.proyectoclinica.model;
     exports co.edu.uniquindio.poo.proyectoclinica.servicios;
-    opens co.edu.uniquindio.poo.proyectoclinica.servicios to javafx.fxml;
+    exports co.edu.uniquindio.poo.proyectoclinica.controllers;
+    opens co.edu.uniquindio.poo.proyectoclinica.controllers to javafx.fxml;
 }
