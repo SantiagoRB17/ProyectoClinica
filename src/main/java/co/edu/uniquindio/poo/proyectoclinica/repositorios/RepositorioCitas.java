@@ -61,7 +61,12 @@ public class RepositorioCitas {
         }
     }
 
-    public Cita buscarCita(UUID cita) throws Exception{
-        return citas.stream().filter(c -> c.getId().equals(cita)).findFirst().orElse(null);
+    /**
+     * Metodo que que busca una cita segun su id
+     * @param id de la cita
+     * @return la cita encontrada o null si no encontro una cita
+     */
+    public Cita buscarCita(UUID id) {
+        return citas.stream().filter(c -> c.getId().equals(id)).findFirst().orElse(null);
     }
 }

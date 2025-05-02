@@ -3,6 +3,7 @@ module ProyectoClinica {
     requires javafx.fxml;
     requires static lombok;
     requires com.dlsc.gemsfx;
+    requires java.desktop;
 
     opens co.edu.uniquindio.poo.proyectoclinica to javafx.fxml;
     exports co.edu.uniquindio.poo.proyectoclinica;

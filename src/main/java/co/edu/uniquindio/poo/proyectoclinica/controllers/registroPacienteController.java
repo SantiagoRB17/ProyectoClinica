@@ -75,6 +75,10 @@ public class registroPacienteController implements Initializable {
         cmbTipoSuscripcion.getSelectionModel().clearSelection();
     }
 
+    /**
+     * Metodo que verifica que tipo de suscripcion se selecciono en la suscripcion
+     * @return suscripcion
+     */
     public Suscripcion verificarTipoSuscripcion(){
         Suscripcion suscripcion = null;
         if(cmbTipoSuscripcion.getSelectionModel().getSelectedItem()==null){

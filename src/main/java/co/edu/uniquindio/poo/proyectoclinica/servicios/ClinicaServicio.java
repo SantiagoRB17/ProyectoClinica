@@ -1,6 +1,7 @@
 package co.edu.uniquindio.poo.proyectoclinica.servicios;
 
 import co.edu.uniquindio.poo.proyectoclinica.model.*;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,17 +20,32 @@ public class ClinicaServicio implements IClinicaServicio{
         servicioPacientes.registrarPaciente(cedula,nombre,email, telefono, suscripcion);
     }
 
+    /**
+     * Metodo que recupera la lista de todos los servicios
+     * @return lista de servicios disponibles
+     */
     @Override
     public List<Servicio> getServiciosDisponibles() {
         return servicioServiciosDisponibles.getServiciosDisponibles();
     }
 
-
+    /**
+     * Metodo que permite registrar una cita
+     * @param cedula cedula del paciente
+     * @param servicio servicio que sera prestado en la cita
+     * @param fecha fecha de la cita
+     * @throws Exception
+     */
     @Override
     public void registrarCita(String cedula, Servicio servicio, LocalDateTime fecha) throws Exception {
         servicioCitas.agregarCita(cedula,servicio,fecha);
     }
 
+    /**
+     * Metodo que permite cancelar una cita
+     * @param id id de la cita a cancelar
+     * @throws Exception
+     */
     @Override
     public void cancelarCita(UUID id) throws Exception {
         servicioCitas.cancelarCita(id);
@@ -40,11 +56,20 @@ public class ClinicaServicio implements IClinicaServicio{
         return null;
     }
 
+    /**
+     * Metodo que recupera la lista de servicios segun la suscripcion
+     * @param suscripcion suscripcion
+     * @return lista de servicios disponibles segun la suscripcion
+     */
     @Override
     public List<Servicio> getServiciosDisponibles(Suscripcion suscripcion) {
             return suscripcion.getServiciosDisponlibles();
     }
 
+    /**
+     * Metodo que lista las suscripciones como una cadena para enviarlo al combo box
+     * @return lista de cadenas
+     */
     public List<String> listarSuscripciones() {
         return List.of("Premium", "Básica", "Sin suscripcion");
     }
@@ -59,5 +84,15 @@ public class ClinicaServicio implements IClinicaServicio{
 
     public List<Paciente> recuperarlistaPacientes() {
         return servicioPacientes.listarPacientes();
+    }
+
+    public List<Servicio> recuperarServiciosPremium() {
+        return servicioServiciosDisponibles.getServiciosPremium();
+    }
+    public List<Servicio> recuperarServiciosBasicos() {
+        return servicioServiciosDisponibles.getServiciosBasicos();
+    }
+    public List<Servicio> recuperarServiciosSinSuscripcion() {
+        return servicioServiciosDisponibles.getServiciosSinSuscripcion();
     }
 }

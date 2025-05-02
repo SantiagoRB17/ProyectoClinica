@@ -34,6 +34,11 @@ public class PanelController {
 
         panelPrincipal.getChildren().setAll(node);
     }
+    public void mostrarListaServicios(ActionEvent actionEvent) {
+        Parent node = cargarPanel("/listaServicios.fxml");
+
+        panelPrincipal.getChildren().setAll(node);
+    }
 
     private Parent cargarPanel(String fxmlFile) {
         try {

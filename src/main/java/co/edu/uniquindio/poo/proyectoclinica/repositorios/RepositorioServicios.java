@@ -29,19 +29,24 @@ public class RepositorioServicios{
     public  List<Servicio> serviciosBasica=List.of(
             Servicio.builder().nombre("Nutricionismo").precio(50000).build(),
             Servicio.builder().nombre("Odontologia").precio(50000).build(),
-            Servicio.builder().nombre("Electrocradiograma").precio(70000).build(),
+            Servicio.builder().nombre("Electrocardiograma").precio(70000).build(),
             Servicio.builder().nombre("Radiografia").precio(50000).build()
+    );
+    /**
+     * Lista de servicios sin suscripcion
+     */
+    @Getter
+    public List<Servicio> serviciosSinSuscripcion=List.of(
+            Servicio.builder().nombre("Examen visual").precio(20000).build(),
+            Servicio.builder().nombre("Consulta psicología").precio(40000).build(),
+            Servicio.builder().nombre("Terapia fisica").precio(40000).build()
     );
     /**
      * Todos los servicios disponibles, premium, basicos y los que no pertenecen a ninguna suscripcion
      */
     @Getter
     public List<Servicio> serviciosDisponibles= Stream.of(
-            List.of(
-                Servicio.builder().nombre("Examen visual").precio(20000).build(),
-                Servicio.builder().nombre("Consulta psicología").precio(40000).build(),
-                Servicio.builder().nombre("Terapia fisica").precio(40000).build()
-            ),
+            serviciosSinSuscripcion,
             serviciosPremium,
             serviciosBasica
     ).flatMap(List::stream).collect(Collectors.toList());

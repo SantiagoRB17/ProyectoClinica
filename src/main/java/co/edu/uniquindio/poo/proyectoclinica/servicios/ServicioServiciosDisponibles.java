@@ -34,4 +34,7 @@ public class ServicioServiciosDisponibles {
     public List<Servicio> getServiciosBasicos() {
         return repositorioServicios.getServiciosBasica();
     }
+    public List<Servicio> getServiciosSinSuscripcion() {
+        return repositorioServicios.getServiciosSinSuscripcion();
+    }
 }
