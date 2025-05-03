@@ -4,6 +4,7 @@ import java.util.List;
 
 public interface Suscripcion {
     List<Servicio> getServiciosDisponlibles();
-    Factura generarFacturaCobro();
 
+    List<Servicio> getServiciosDisponibles();
+    Factura generarFacturaCobro(Paciente paciente,Servicio servicio) throws Exception;
 }

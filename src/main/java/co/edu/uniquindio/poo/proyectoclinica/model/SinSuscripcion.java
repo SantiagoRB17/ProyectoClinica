@@ -13,8 +13,18 @@ public class SinSuscripcion implements Suscripcion{
     }
 
     @Override
-    public Factura generarFacturaCobro() {
-        return null;
+    public List<Servicio> getServiciosDisponibles() {
+        return List.of();
+    }
+
+    @Override
+    public Factura generarFacturaCobro(Paciente paciente,Servicio servicio) {
+        double subTotal=servicio.getPrecio();
+        double total=subTotal;
+        return Factura.builder()
+                .subTotal(subTotal)
+                .total(total)
+                .build();
     }
     @Override
     public String toString() {

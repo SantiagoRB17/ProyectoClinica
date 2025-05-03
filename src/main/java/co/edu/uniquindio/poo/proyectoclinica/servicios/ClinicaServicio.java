@@ -1,7 +1,9 @@
 package co.edu.uniquindio.poo.proyectoclinica.servicios;
 
 import co.edu.uniquindio.poo.proyectoclinica.model.*;
+import co.edu.uniquindio.poo.proyectoclinica.repositorios.RepositorioPacientes;
 import co.edu.uniquindio.poo.proyectoclinica.utils.EnvioEmail;
+import javafx.scene.control.Alert;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -39,10 +41,19 @@ public class ClinicaServicio implements IClinicaServicio{
      */
     @Override
     public void registrarCita(String cedula, Servicio servicio, LocalDateTime fecha) throws Exception {
-        servicioCitas.agregarCita(cedula,servicio,fecha);
+        servicioCitas.agregarCita(cedula, servicio, fecha);
         Paciente paciente = servicioPacientes.buscarPaciente(cedula);
+
+        // Construir y enviar mensaje de confirmación
         String mensaje = EnvioEmail.construirMensajeCita(paciente.getNombre(), servicio.getNombre().toString(), fecha);
         EnvioEmail.enviarNotificacion(paciente.getEmail(), "Confirmación de Cita", mensaje);
+
+        // Recuperar la cita recién creada
+        List<Cita> citas = recuperarlistaCitas();
+        Cita citaRecienCreada = citas.get(citas.size() - 1); // Se asume que es la última cita agregada
+
+        // Mostrar factura emergente
+        mostrarFacturaEmergente(citaRecienCreada);
     }
 
     /**
@@ -55,10 +66,77 @@ public class ClinicaServicio implements IClinicaServicio{
         servicioCitas.cancelarCita(id);
     }
 
+    /**
+     * metodo para generar la factura referente a una cita
+     * @param cita
+     * @return una factura asociada a una cita
+     * @throws Exception
+     */
     @Override
-    public Factura generarFactura() {
-        return null;
+    public Factura generarFactura(Cita cita) throws Exception {
+        Paciente paciente= RepositorioPacientes.getInstance().buscarPaciente(cita.getPaciente().getCedula());
+        Servicio servicio= cita.getServicio();
+
+        Factura factura= paciente.getSuscripcion().generarFacturaCobro(paciente,servicio);
+
+        factura.setFecha(LocalDateTime.now());
+
+        return factura;
     }
+
+    public void mostrarFacturaEmergente(Cita cita) {
+        try {
+            Factura factura = generarFactura(cita);
+            Servicio servicio = cita.getServicio();
+            Paciente paciente = cita.getPaciente();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Factura Generada");
+            alert.setHeaderText("Detalle de la Cita");
+
+            String descuentoMsg = "";
+            if (factura.getTotal() < factura.getSubTotal()) {
+                descuentoMsg = String.format("\nDescuento (%s): $%,.2f",
+                        paciente.getSuscripcion(),
+                        (factura.getSubTotal() - factura.getTotal()));
+            }
+
+            String contenido = String.format(
+                    "Paciente: %s\n" +
+                            "Servicio: %s\n" +
+                            "Tipo Servicio: %s\n" +
+                            "Precio Base: $%,.2f%s\n" +
+                            "TOTAL A PAGAR: $%,.2f",
+                    paciente.getNombre(),
+                    servicio.getNombre(),
+                    obtenerTipoServicio(servicio),
+                    factura.getSubTotal(),
+                    descuentoMsg,
+                    factura.getTotal()
+            );
+
+            alert.setContentText(contenido);
+            alert.showAndWait();
+
+        } catch (Exception e) {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setContentText("Error al generar factura: " + e.getMessage());
+            error.showAndWait();
+        }
+    }
+
+    private String obtenerTipoServicio(Servicio servicio) {
+        ServicioServiciosDisponibles servicios = new ServicioServiciosDisponibles();
+
+        if (servicios.getServiciosPremium().stream().anyMatch(s -> s.getNombre() == servicio.getNombre())) {
+            return "Premium";
+        } else if (servicios.getServiciosBasicos().stream().anyMatch(s -> s.getNombre() == servicio.getNombre())) {
+            return "Básico";
+        } else {
+            return "Sin Suscripción";
+        }
+    }
+
 
     /**
      * Metodo que recupera la lista de servicios segun la suscripcion
@@ -67,7 +145,7 @@ public class ClinicaServicio implements IClinicaServicio{
      */
     @Override
     public List<Servicio> getServiciosDisponibles(Suscripcion suscripcion) {
-            return suscripcion.getServiciosDisponlibles();
+        return suscripcion.getServiciosDisponibles();
     }
 
     /**
@@ -101,5 +179,5 @@ public class ClinicaServicio implements IClinicaServicio{
     }
     public Suscripcion asginarSuscripcion(TipoSuscripcion tipoSuscripcion) {
         return servicioPacientes.asignarSuscripcionSeleccionada(tipoSuscripcion);
-    }
+}
 }

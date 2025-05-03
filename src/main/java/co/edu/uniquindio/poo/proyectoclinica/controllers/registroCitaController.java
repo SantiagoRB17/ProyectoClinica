@@ -91,7 +91,6 @@ public class registroCitaController implements Initializable {
         datePickerFechaCita.setValue(null);
         timePickerHoraCita.setTime(LocalTime.now());
         cmbServiciosDisponibles.setValue(null);
-    }
-
 }
 
+}

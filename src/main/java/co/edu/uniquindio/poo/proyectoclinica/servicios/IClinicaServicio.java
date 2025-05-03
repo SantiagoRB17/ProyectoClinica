@@ -1,8 +1,6 @@
 package co.edu.uniquindio.poo.proyectoclinica.servicios;
 
-import co.edu.uniquindio.poo.proyectoclinica.model.Factura;
-import co.edu.uniquindio.poo.proyectoclinica.model.Servicio;
-import co.edu.uniquindio.poo.proyectoclinica.model.Suscripcion;
+import co.edu.uniquindio.poo.proyectoclinica.model.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,7 +12,7 @@ public interface IClinicaServicio {
     List<Servicio> getServiciosDisponibles();
     void registrarCita(String cedula, Servicio servicio, LocalDateTime fecha) throws Exception;
     void cancelarCita(UUID id) throws Exception;
-    Factura generarFactura();
+    Factura generarFactura(Cita cita) throws Exception;
     List<Servicio> getServiciosDisponibles(Suscripcion suscripcion);
 
 }
